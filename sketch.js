@@ -232,6 +232,19 @@ function draw() {
       }, 1000)
   }
 
+  if(mConstraint.body == ball.body && coll==true)
+  {
+    commentary = 'Handling the ball! Out!'
+    coll = false;
+    Matter.World.remove(world, ball.body);
+    wicketDown();
+    setTimeout(function() {
+      coll = true
+      newBall()
+    }, 1000)
+
+  }
+
   if (pow(pow(ball.body.velocity.x, 2) + pow(ball.body.velocity.y, 2), 1 / 2) < 0.1) {
     commentary = 'Dot ball'
     newBall()
