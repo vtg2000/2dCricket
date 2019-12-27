@@ -1,9 +1,11 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html><html>
+    <head>
     <script src="p5.js"></script>
     <script src="p5.sound.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8">
-  </head><body>
+  </head>
+  <body>
       <!-- <div id="score">Score</div> -->
 <!--     <button id="play" onclick="plays">Play</button> -->
     <div id="ac-wrapper" style='display:none'>
@@ -12,16 +14,17 @@
                 <h2>Cricket!</h2> 
                 <h4>The yellow circle is your bat. Click and drag it around to hit the ball.</h4>  
                 <h4>The squares are the fielders.</h4> 
-                <ul>
+                <ul style="list-style-type:none">
                     <li>White one - 0 runs</li>
                     <li>Light blue - 1 run</li>
                     <li>Blue - 2 runs</li>
                     <li>Green one - 3 runs</li>
                     <li>Red - Out!</li>
                 <h4>The pink rectange is the stumps</h4>
+                <h4>Chase the target at the top right to win</h4>
                 <h5>Press r to restart at any time</h5>
                 </ul>
-                <input type="submit" name="submit" value="Play!" onClick="PopUp('hide')" />
+                <input type="submit" name="submit" value="Play!" onClick="PopUp('hide')" style="width: 50px; height:20px;"/>
             </div>
         </div>
     </div>

@@ -23,7 +23,7 @@ function setup() {
   world = engine.world;
   bat = new Bat(midX, midY, 15);
   slingshot = new Sling(midX, midY, bat.body);
-  ball = new Ball(midX, 800, 10);
+  ball = new Ball(midX, midY + 400, 10);
   stumps = new Stumps(midX, midY - 100, 90, 10);
   const mouse = Matter.Mouse.create(canvas.elt);
   const options = {
@@ -132,7 +132,7 @@ function wicketDown() {
 function newBall() {
   Matter.World.remove(world, ball.body);
   shuffleFielders();
-  ball = new Ball(random(midX - 50, midX + 50), 350, 10);
+  ball = new Ball(random(midX - 50, midX + 50), midY + 200, 10);
   ballsLeft -= 1;
 
 }
