@@ -12,7 +12,7 @@ var ballsLeft;
 function setup() {
   toWin = random(50, 100);
   wicketsInHand = random(4, 7);
-  ballsLeft = round(random(25, 35)) + round(toWin/4)
+  ballsLeft = round(random(25, 30)) + round(toWin/4.5)
   
   midX = windowWidth/2;
   midY = windowHeight/3;
@@ -117,7 +117,7 @@ function newGame(){
   wicketsInHand = random(4, 7);
   wickets = 0;
   runs = 0;
-  ballsLeft = round(random(25, 35)) + round(toWin/4)
+  ballsLeft = round(random(20, 30)) + round(toWin/4.5)
   loop();
 }
 
