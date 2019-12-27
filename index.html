@@ -1,0 +1,52 @@
+<!DOCTYPE html><html><head>
+    <script src="p5.js"></script>
+    <script src="p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+  </head><body>
+      <!-- <div id="score">Score</div> -->
+<!--     <button id="play" onclick="plays">Play</button> -->
+    <div id="ac-wrapper" style='display:none'>
+        <div id="popup">
+            <div style='text-align: center; background-color: aqua'>
+                <h2>Cricket!</h2> 
+                <h4>The yellow circle is your bat. Click and drag it around to hit the ball.</h4>  
+                <h4>The squares are the fielders.</h4> 
+                <ul>
+                    <li>White one - 0 runs</li>
+                    <li>Light blue - 1 run</li>
+                    <li>Blue - 2 runs</li>
+                    <li>Green one - 3 runs</li>
+                    <li>Red - Out!</li>
+                <h4>The pink rectange is the stumps</h4>
+                <h5>Press r to restart at any time</h5>
+                </ul>
+                <input type="submit" name="submit" value="Play!" onClick="PopUp('hide')" />
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function PopUp(hideOrshow) {
+        newGame()
+        if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
+        else document.getElementById('ac-wrapper').removeAttribute('style');
+    }
+    window.onload = function () {
+        setTimeout(function () {
+            PopUp('show');
+        }, 0);
+    }
+    </script>
+     <script src="matter.min.js"></script>
+    <script src="sketch.js"></script>
+    <script src="bat.js"></script>
+    <script src="sling.js"></script>
+    <script src="ball.js"></script>
+    <script src="stumps.js"></script>
+    <script src="fielders.js"></script>
+    <script src="catch.js"></script>
+   
+    
+  
+
+</body></html>
