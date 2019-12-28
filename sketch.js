@@ -1,4 +1,3 @@
-
 var runs = 0;
 var wickets = 0;
 const fielders = [];
@@ -10,9 +9,9 @@ var wicketsInHand;
 var ballsLeft;
 
 function setup() {
-  toWin = random(50, 100);
-  wicketsInHand = random(4, 7);
-  ballsLeft = round(random(25, 30)) + round(toWin/4.5)
+  toWin = round(random(50, 100));
+  wicketsInHand = round(random(4, 7));
+  ballsLeft = round(random(25, 35)) + round(toWin/4.5)
   
   midX = windowWidth/2;
   midY = windowHeight/3;
@@ -55,13 +54,10 @@ function setup() {
     c = [a, b]
     catchers[i] = new Catcher(random(c), random(0, 500), fielderSize, fielderSize);
   }
-  
-
 }
 
 function boundaries()
 {
-
   stroke(0, 255, 0);
   line(10,10,10,windowHeight-20);
   line(windowWidth-20,10,windowWidth-20,windowHeight-20);
@@ -73,7 +69,6 @@ function boundaries()
   text('4', 20 , (windowHeight)/2)
   text('4', windowWidth-50 , (windowHeight)/2)
   stroke(0,250,255)
-
 }
 
 
@@ -110,34 +105,48 @@ function keyPressed() {
   if (key == 'r') {
     newGame()
   }
+  if(key == 'd')
+  {
+    quickGame()
+  }
 }
 
 function newGame(){
-  toWin = random(50, 100);
-  wicketsInHand = random(4, 7);
+  textAlign(LEFT)
+  toWin = round(random(50, 100));
+  wicketsInHand = round(random(4, 7));
   wickets = 0;
   runs = 0;
-  ballsLeft = round(random(20, 30)) + round(toWin/4.5)
+  ballsLeft = round(random(25, 35)) + round(toWin/4.5)
+  loop();
+}
+
+function quickGame(){
+  textAlign(LEFT)
+  toWin = round(random(15, 30));
+  wicketsInHand = round(random(2, 3));
+  wickets = 0;
+  runs = 0;
+  ballsLeft = round(random(5, 10)) + round(toWin/5)
   loop();
 }
 
 var commentary = ''
 
 function wicketDown() {
+  ballsLeft -= 1;
   wickets += 1;
-  console.log('Score : ' + runs + '-' + wickets);
-  
+  console.log('Score : ' + runs + '-' + wickets); 
 }
 
 function newBall() {
   Matter.World.remove(world, ball.body);
   shuffleFielders();
   ball = new Ball(random(midX - 50, midX + 50), midY + 200, 10);
-  ballsLeft -= 1;
-
 }
 
 function addRuns(k) {
+  ballsLeft -= 1;
   runs += k
   commentary= k + ' runs'
   console.log('Score : ' + runs + '-' + wickets);
@@ -147,6 +156,7 @@ function addRuns(k) {
 var coll = true;
 
 function draw() {
+
   var bowled = Matter.SAT.collides(ball.body, stumps.body);
   for (let i = 0; i < 6; i++) {
     caught[i] = Matter.SAT.collides(ball.body, catchers[i].body);
@@ -154,25 +164,27 @@ function draw() {
   for (let i = 0; i < 13; i++) {
     fielded[i] = Matter.SAT.collides(ball.body, fielders[i].body);
   }
-  // score.innerHTML = 'Runs to win : ' + round(toWin - runs) + ' Wickets in hand : ' + round(wicketsInHand - wickets);
+
   background('#222222');
   bat.show();
   slingshot.show();
   stumps.show();
   ball.show();
   boundaries();
-  text('Runs needed : ' + (round(toWin)- runs), windowWidth - 350 , 60)
-  text('Wickets left : ' + round(wicketsInHand - wickets), windowWidth - 350 , 100)
-  text('Balls left : ' + ballsLeft, windowWidth - 350 , 140)
-  text(runs + '-' +  wickets, windowWidth - 150 , windowHeight-60)
-  text(commentary, 30, windowHeight-40)
-  stroke(255, 255, 255);
   for (let i = 0; i < 13; i++) {
     fielders[i].show();
   }
   for (let i = 0; i < 6; i++) {
     catchers[i].show();
   }
+  textSize(30)
+  text('Runs needed : ' + (toWin- runs), windowWidth - 300 , 60)
+  text('Wickets left : ' + (wicketsInHand - wickets), windowWidth - 300 , 100)
+  text('Balls left : ' + ballsLeft, windowWidth - 300 , 140)
+  text('RRR per ball : ' + ((toWin- runs)/ballsLeft).toFixed(2), windowWidth - 300 , 180)
+  text(runs + '-' +  wickets, windowWidth - 150 , windowHeight-60)
+  text(commentary, 30, windowHeight-40)
+  stroke(255, 255, 255);
 
   Matter.Engine.update(engine, 1000 / 60);
   if (bowled.collided && coll) {
@@ -207,9 +219,7 @@ function draw() {
       setTimeout(function() {
         newBall()
       }, 1000)
-
     }
-
   }
 
   if ((ball.body.position.x < 0 || ball.body.position.x > windowWidth) && coll) {
@@ -218,7 +228,6 @@ function draw() {
     setTimeout(function() {
         coll = true
         newBall()
-        // sixRegion()
       }, 1000)
   }
 
@@ -242,34 +251,42 @@ function draw() {
       coll = true
       newBall()
     }, 1000)
-
   }
 
-  if (pow(pow(ball.body.velocity.x, 2) + pow(ball.body.velocity.y, 2), 1 / 2) < 0.1) {
+  if (pow(pow(ball.body.velocity.x, 2) + pow(ball.body.velocity.y, 2), 1 / 2) < 0.2) {
     commentary = 'Dot ball'
+    ballsLeft -= 1;
     newBall()
   }
 
   if (runs >= toWin) {
-    alert('You win! Press r to replay')
-    console.log('You win!');
-    console.log('Score : ' + runs + '-' + wickets);
-    
+    textSize(34)
+    textAlign(CENTER)
+    text('You win by ' + (wicketsInHand - wickets) + ' wickets!', midX, midY + 100)
+    textSize(18)
+    text('Press r to play', midX, midY + 130)
+    text('Press d for a quick game', midX, midY + 160)
     noLoop()
   }
 
   if (round(wicketsInHand - wickets) == 0) {
-    alert('You lose! Press r to replay')
-    console.log('You lose!');
-    console.log('Score : ' + runs + '-' + wickets);
+    textSize(34)
+    textAlign(CENTER)
+    text('You lose by ' + (toWin- runs) + ' runs', midX, midY + 100)
+    textSize(18)
+    text('Press r to play', midX, midY + 130)
+    text('Press d for a quick game', midX, midY + 160)
     noLoop()
   }
 
   if(ballsLeft == 0)
   {
-    alert('You lose! Press r to replay')
-    console.log('You lose!');
-    console.log('Score : ' + runs + '-' + wickets);
+    textSize(34)
+    textAlign(CENTER)
+    text('You lose by ' + (toWin- runs) + ' runs', midX, midY + 100)
+    textSize(18)
+    text('Press r to play', midX, midY + 130)
+    text('Press d for a quick game', midX, midY + 160)
     noLoop()
   }
 

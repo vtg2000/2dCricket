@@ -10,34 +10,43 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Cricket!</title>
   </head>
-  <body>
+  <body style='text-align: center; background-color: #001f3f; color: white'>
       <!-- <div id="score">Score</div> -->
 <!--     <button id="play" onclick="plays">Play</button> -->
     <div id="ac-wrapper" style='display:none'>
         <div id="popup">
-            <div style='text-align: center; background-color: aqua'>
+            <div style='text-align: center'>
                 <h2>Cricket!</h2> 
-                <h4>The yellow circle is your bat. Click and drag it around to hit the ball.</h4>  
+                <h4>The <span style='color:yellow'>yellow circle</span> is your bat. Click and drag it around to hit the ball.</h4>  
                 <h4>The squares are the fielders.</h4> 
                 <ul style="list-style-type:none">
                     <li>White one - 0 runs</li>
-                    <li>Light blue - 1 run</li>
-                    <li>Blue - 2 runs</li>
-                    <li>Green one - 3 runs</li>
-                    <li>Red - Out!</li>
-                <h4>The pink rectange is the stumps</h4>
+                    <li><span style='color:lightblue'>Light blue</span> - 1 run</li>
+                    <li><span style='color:blue'>Blue</span> - 2 runs</li>
+                    <li><span style='color:lightgreen'>Green one</span> - 3 runs</li>
+                    <li><span style='color:red'>Red</span> - Out!</li>
+                <h4>The <span style='color:red'>red rectange</span> is the stumps</h4>
                 <h4>Chase the target at the top right to win</h4>
                 <h5>Press r to restart at any time</h5>
+                <h5>Press d to play a quick game</h5>
                 </ul>
-                <input type="submit" name="submit" value="Play!" onClick="PopUp('hide')" style="width: 50px; height:20px;"/>
+                <button type="submit" class="button1" name="submit" onClick="PopUp('hide')" style="width: 50px; height:30px; margin-bottom: 30px"/>
+                Play</button>
             </div>
         </div>
     </div>
     <script type="text/javascript">
         function PopUp(hideOrshow) {
+
         newGame()
         if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
         else document.getElementById('ac-wrapper').removeAttribute('style');
+
+        if(window.innerWidth < 780)
+        {
+            document.getElementById('ac-wrapper').style.display = "none"
+        }
+        
     }
     window.onload = function () {
         setTimeout(function () {
