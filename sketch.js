@@ -7,6 +7,7 @@ var fielded = [];
 var toWin;
 var wicketsInHand;
 var ballsLeft;
+var count = 0;
 
 function setup() {
   toWin = round(random(50, 100));
@@ -143,6 +144,7 @@ function newBall() {
   Matter.World.remove(world, ball.body);
   shuffleFielders();
   ball = new Ball(random(midX - 50, midX + 50), midY + 200, 10);
+  count = 0
 }
 
 function addRuns(k) {
@@ -154,9 +156,11 @@ function addRuns(k) {
 
 
 var coll = true;
+var colli = true;
 
 function draw() {
 
+  var hit = Matter.SAT.collides(ball.body, bat.body);
   var bowled = Matter.SAT.collides(ball.body, stumps.body);
   for (let i = 0; i < 6; i++) {
     caught[i] = Matter.SAT.collides(ball.body, catchers[i].body);
@@ -211,6 +215,23 @@ function draw() {
     }
   }
 
+  if(hit.collided && colli)
+  {
+    count += 1;
+    colli = false;
+    setTimeout(function() {
+      colli = true
+    }, 300)
+    if(count > 1)
+    {
+      commentary = 'Double bat out!'
+      Matter.World.remove(world, ball.body);
+      wicketDown();
+      setTimeout(function() {
+        newBall()
+      }, 1000)
+    }
+  }
 
   for (let i = 0; i < 13; i++) {
     if (fielded[i].collided && coll) {
@@ -269,7 +290,7 @@ function draw() {
     noLoop()
   }
 
-  if (round(wicketsInHand - wickets) == 0) {
+  if (round(wicketsInHand - wickets) == 0 && !(runs >= toWin)) {
     textSize(34)
     textAlign(CENTER)
     text('You lose by ' + (toWin- runs) + ' runs', midX, midY + 100)
@@ -279,7 +300,7 @@ function draw() {
     noLoop()
   }
 
-  if(ballsLeft == 0)
+  if(ballsLeft <= 0 && !(runs >= toWin))
   {
     textSize(34)
     textAlign(CENTER)
