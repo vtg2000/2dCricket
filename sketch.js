@@ -124,7 +124,7 @@ function newGame(){
 
 function quickGame(){
   textAlign(LEFT)
-  toWin = round(random(15, 30));
+  toWin = round(random(15, 25));
   wicketsInHand = round(random(2, 3));
   wickets = 0;
   runs = 0;
@@ -222,7 +222,7 @@ function draw() {
     setTimeout(function() {
       colli = true
     }, 300)
-    if(count > 1)
+    if(count == 2)
     {
       commentary = 'Double bat out!'
       Matter.World.remove(world, ball.body);
