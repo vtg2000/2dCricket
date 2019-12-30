@@ -28,6 +28,11 @@ function setup() {
   const mouse = Matter.Mouse.create(canvas.elt);
   const options = {
     mouse: mouse,
+    collisionFilter : 
+      {
+        group : -2,
+        category : 0x0002
+      }
   }
 
   mouse.pixelRatio = pixelDensity();
@@ -42,12 +47,20 @@ function setup() {
     fielders[i] = new Fielder(random(c), random(0, 500), fielderSize, fielderSize, random(d));
   }
 
-  for (let i = 10; i < 13; i++) {
+  a = random(0, midX - 100)
+  b = random(midX + 100, windowWidth)
+  c = [a, b]
+  
+
+  for (let i = 10; i < 14; i++) {
     a = random(0, midY - 100)
     b = random(midY + 300, windowHeight-30)
     c = [a, b]
     fielders[i] = new Fielder(random(midX - 100, midX + 100), b, fielderSize, fielderSize, random(0, 3));
   }
+
+  
+  fielders[13] = new Fielder(random(c), random(0, 500), fielderSize, fielderSize, 6);
 
   for (let i = 0; i < 6; i++) {
     a = random(0, midX - 100)
@@ -84,7 +97,7 @@ function shuffleFielders() {
   }
 
 
-  for (let i = 10; i < 13; i++) {
+  for (let i = 10; i < 14; i++) {
     Matter.World.remove(world, fielders[i].body);
     a = random(0, midY - 100)
     b = random(midY + 300, windowHeight-25)
@@ -92,6 +105,12 @@ function shuffleFielders() {
     d = [0,0,0,1,1,2,3]
     fielders[i] = new Fielder(random(midX - 100, midX + 100), b, fielderSize, fielderSize, random(d));
   }
+
+  Matter.World.remove(world, fielders[13].body);
+  a = random(0, midX - 100)
+  b = random(midX + 100, windowWidth)
+  c = [a, b]
+  fielders[13] = new Fielder(random(c), random(0, 500), fielderSize, fielderSize, 6);
 
   for (let i = 0; i < 6; i++) {
     a = random(0, midX - 100)
@@ -165,7 +184,7 @@ function draw() {
   for (let i = 0; i < 6; i++) {
     caught[i] = Matter.SAT.collides(ball.body, catchers[i].body);
   }
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 14; i++) {
     fielded[i] = Matter.SAT.collides(ball.body, fielders[i].body);
   }
 
@@ -175,7 +194,7 @@ function draw() {
   stumps.show();
   ball.show();
   boundaries();
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 14; i++) {
     fielders[i].show();
   }
   for (let i = 0; i < 6; i++) {
@@ -233,7 +252,7 @@ function draw() {
     }
   }
 
-  for (let i = 0; i < 13; i++) {
+  for (let i = 0; i < 14; i++) {
     if (fielded[i].collided && coll) {
       Matter.World.remove(world, ball.body);
       addRuns(fielders[i].runs);

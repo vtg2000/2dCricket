@@ -1,7 +1,12 @@
 class Bat {
   constructor(x, y, r) {
     var options = {
-      restitutuion : 0.1
+      restitutuion : 0.1,
+      collisionFilter : 
+      {
+        group : -1,
+        category : 0x0002
+      }
     }
     this.body = Matter.Bodies.circle(x, y, r*1.5,options);
     Matter.World.add(world, this.body);

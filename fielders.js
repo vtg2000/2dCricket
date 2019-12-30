@@ -1,9 +1,14 @@
 
 class Fielder {
   constructor(x, y, w, h, runs) {
-    const options = {
-      restitution: 0
-    }    
+    var options = {
+      restitutuion : 0,
+      collisionFilter : 
+      {
+        group : -2,
+        category : 0x0002
+      }
+    }
     this.body = Matter.Bodies.rectangle(x, y, w, h, options);
     Matter.Body.setMass(this.body, 100)
     Matter.World.add(world, this.body);
@@ -30,6 +35,10 @@ class Fielder {
     else if(this.runs == 2)
     {
      fill(0,0,255) 
+    }
+    else if(this.runs == 6)
+    {
+     fill(255,165,0) 
     }
     else
     {
