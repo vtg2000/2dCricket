@@ -8,7 +8,7 @@ class Ball {
         category : 0x0002
       }
     }
-    this.body = Matter.Bodies.circle(x, y, r*1.5, options);
+    this.body = Matter.Bodies.circle(x, y, r*0.75, options);
     Matter.Body.setVelocity(this.body, {x: 0, y: random(-5,-10)});
     Matter.World.add(world, this.body);
     this.r = r;

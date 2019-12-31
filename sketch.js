@@ -52,14 +52,14 @@ function setup() {
   c = [a, b]
   
 
-  for (let i = 10; i < 14; i++) {
+  for (let i = 10; i < 13; i++) {
     a = random(0, midY - 100)
     b = random(midY + 300, windowHeight-30)
     c = [a, b]
     fielders[i] = new Fielder(random(midX - 100, midX + 100), b, fielderSize, fielderSize, random(0, 3));
   }
 
-  
+
   fielders[13] = new Fielder(random(c), random(0, 500), fielderSize, fielderSize, 6);
 
   for (let i = 0; i < 6; i++) {
@@ -97,7 +97,7 @@ function shuffleFielders() {
   }
 
 
-  for (let i = 10; i < 14; i++) {
+  for (let i = 10; i < 13; i++) {
     Matter.World.remove(world, fielders[i].body);
     a = random(0, midY - 100)
     b = random(midY + 300, windowHeight-25)

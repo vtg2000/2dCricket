@@ -16,7 +16,7 @@ class Stumps {
     push();
     translate(pos.x, pos.y);
     rotate(angle);
-    fill(255,10,50);
+    fill(255,0,0);
     rectMode(CENTER);
     rect(0, 0, this.w, this.h);
     pop();
